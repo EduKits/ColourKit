@@ -3,6 +3,13 @@
 
 #include <Arduino.h>
 
+#if __has_include(<Modulino.h>)
+  class ModulinoColor;  // forward-declaration; no include here
+  #define COLOURKIT_HAS_MODULINO 1
+#else
+  #define COLOURKIT_HAS_MODULINO 0
+#endif
+
 class Colour {
 private:
   uint8_t red, green, blue;
@@ -61,6 +68,10 @@ public:
 
   // Write color to LED pins
   void writeLed(byte rPin, byte gPin, byte bPin);
+
+#if COLOURKIT_HAS_MODULINO
+  operator ModulinoColor() const;
+#endif
 };
 
 #if __has_include(<Adafruit_TCS34725.h>)

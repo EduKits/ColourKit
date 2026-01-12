@@ -102,3 +102,11 @@ void Colour::writeLed(byte rPin, byte gPin, byte bPin) {
   analogWrite(gPin, green);
   analogWrite(bPin, blue);
 }
+
+#if COLOURKIT_HAS_MODULINO
+  #include <Modulino.h>
+
+  Colour::operator ModulinoColor() const {
+    return ModulinoColor(red, green, blue);
+  }
+#endif
